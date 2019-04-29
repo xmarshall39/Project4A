@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class Colletable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public delegate void CrystalCollect();
+    public static event CrystalCollect OnCrystalCollect;
+
+
 
     private void OnTriggerEnter2D(Collider2D target)
     {
 
-        if (target.gameObject.tag == "Player") { Destroy(this.gameObject); }
+        if (target.gameObject.tag == "Player") {
+            
+            Destroy(this.gameObject);
+            OnCrystalCollect?.Invoke();
+            
+        }
             
     }
 }
